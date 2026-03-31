@@ -1,0 +1,1 @@
+// tempalate for auth context
