@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useLogin } from "../hooks/useLogin";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -10,11 +11,14 @@ export default function Login() {
     formState: { errors },
   } = useForm();
 
+  const { mutate, isPending } = useLogin();
+
   const onSubmit = (data) => {
     if (data.password.length < 8) {
       alert("Password must be at least 8 characters");
       return;
     }
+    mutate(data);
     console.log("Login success:", data);
   };
 
@@ -39,6 +43,7 @@ export default function Login() {
             <div className='input-wrapper'>
               <input
                 type='email'
+                disabled={isPending}
                 placeholder='Email address*'
                 className='form-field'
                 {...register("email", {
@@ -61,6 +66,7 @@ export default function Login() {
             <div className='input-wrapper'>
               <input
                 type='password'
+                disabled={isPending}
                 placeholder='Password *'
                 className='form-field'
                 {...register("password", {

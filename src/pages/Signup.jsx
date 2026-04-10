@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useSignup } from "../hooks/useSignup";
 
 export default function Signup() {
   const {
@@ -10,6 +11,8 @@ export default function Signup() {
     resetField,
     formState: { errors },
   } = useForm();
+
+  const { mutate, isPending } = useSignup();
 
   const navigate = useNavigate();
 
@@ -32,8 +35,14 @@ export default function Signup() {
       resetField("confirmPassword");
       return;
     }
+    const payload = {
+      name: `${data.firstname} ${data.lastname}`,
+      email: data.email,
+      password: data.password,
+      password_confirmation: data.confirmPassword,
+    };
 
-    console.log("Signup success:", data);
+    mutate(payload);
   };
 
   return (
@@ -58,6 +67,7 @@ export default function Signup() {
               <div className='input-wrapper'>
                 <input
                   type='text'
+                  disabled={isPending}
                   placeholder='First name*'
                   className='form-field'
                   {...register("firstname", {
@@ -72,6 +82,7 @@ export default function Signup() {
               <div className='input-wrapper'>
                 <input
                   type='text'
+                  disabled={isPending}
                   placeholder='Last name*'
                   className='form-field'
                   {...register("lastname", {
@@ -89,6 +100,7 @@ export default function Signup() {
               <div className='input-wrapper'>
                 <input
                   type='email'
+                  disabled={isPending}
                   placeholder='Email Address*'
                   className='form-field'
                   {...register("email", {
@@ -108,6 +120,7 @@ export default function Signup() {
               <div className='input-wrapper'>
                 <input
                   type='tel'
+                  disabled={isPending}
                   placeholder='Phone number*'
                   className='form-field'
                   {...register("tel", {
@@ -128,6 +141,7 @@ export default function Signup() {
               <div className='input-wrapper'>
                 <input
                   type='password'
+                  disabled={isPending}
                   placeholder='Password*'
                   className='form-field'
                   {...register("password", {
@@ -147,6 +161,7 @@ export default function Signup() {
               <div className='input-wrapper'>
                 <input
                   type='password'
+                  disabled={isPending}
                   placeholder='Confirm password*'
                   className='form-field'
                   {...register("confirmPassword", {
@@ -164,6 +179,7 @@ export default function Signup() {
             <div className='form-group form-group--full'>
               <div className='input-wrapper'>
                 <select
+                  disabled={isPending}
                   className='form-field select-field'
                   defaultValue=''
                   {...register("track", {

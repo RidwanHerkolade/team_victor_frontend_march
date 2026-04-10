@@ -23,7 +23,7 @@ const mockContinueWatching = [
     totalLessons: 8,
     status: "In · Progress",
     statusColor: "orange",
-    img: "/images/r5.png"
+    img: "/images/r5.png",
   },
   {
     id: 2,
@@ -33,7 +33,7 @@ const mockContinueWatching = [
     totalLessons: 8,
     status: "Last Accessed",
     statusColor: "purple",
-   img: "/images/r6.png"
+    img: "/images/r6.png",
   },
   {
     id: 3,
@@ -44,7 +44,7 @@ const mockContinueWatching = [
     status: "Completed",
     statusColor: "green",
     completedDate: "Mar 28, 2026",
-     img: "/images/r1.png"
+    img: "/images/r1.png",
   },
 ];
 
@@ -59,7 +59,7 @@ const mockExploreCourses = [
     students: "16k",
     badge: "Best Sellers",
     badgeColor: "orange",
-     img: "/images/r2.png"
+    img: "/images/r2.png",
   },
   {
     id: 5,
@@ -70,7 +70,7 @@ const mockExploreCourses = [
     students: "14k",
     badge: "New",
     badgeColor: "teal",
-     img: "/images/r4.png"
+    img: "/images/r4.png",
   },
   {
     id: 6,
@@ -80,7 +80,7 @@ const mockExploreCourses = [
     rating: 4.3,
     students: "5k",
     badge: null,
-     img: "/images/r3.png"
+    img: "/images/r3.png",
   },
 ];
 
