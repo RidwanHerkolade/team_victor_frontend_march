@@ -10,3 +10,25 @@
 body {
   font-family: var(--font-family);
 }
+ 
+@layer base {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  /* input:-webkit-autofill:focus, */
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 100px #f4e6ff inset !important;
+    box-shadow: 0 0 0 1000px #f4e6ff inset !important;
+    -webkit-text-fill-color: #0F172A !important;
+    caret-color: #0F172A;
+    border: 2px solid #f4e6ff !important;
+  }
+
+  input:focus:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+    box-shadow: 0 0 0 100px white inset !important;
+    border: 1px solid #f4e6ff !important;
+  }
+}
+select option:hover {
+  background: #f4e6ff;
+}

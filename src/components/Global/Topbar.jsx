@@ -1,3 +1,148 @@
+// import { useState, useRef, useEffect } from "react";
+// import { motion, AnimatePresence } from "framer-motion";
+// import { useApp } from "../../contexts/AppContext";
+// import { useLogout } from "../../hooks/useLogout";
+
+// export default function Topbar() {
+//   const { user, searchQuery, setSearchQuery } = useApp();
+//   const [openMenu, setOpenMenu] = useState(false);
+//   const menuRef = useRef(null);
+//   const handleLogout = useLogout();
+
+//   // close dropdown on outside click
+//   useEffect(() => {
+//     function handleClickOutside(e) {
+//       if (menuRef.current && !menuRef.current.contains(e.target)) {
+//         setOpenMenu(false);
+//       }
+//     }
+//     document.addEventListener("mousedown", handleClickOutside);
+//     return () => document.removeEventListener("mousedown", handleClickOutside);
+//   }, []);
+
+//   return (
+//     <header className='sticky top-0 z-20 bg-[#F5F5F7] border-b border-gray-100 px-4 md:px-6 py-3'>
+//       <div className='flex items-center justify-between gap-4'>
+//         {/* SEARCH */}
+//         <div className='flex-1 w-full rounded-[20px] bg-white p-1.5'>
+//           <div className='flex items-center gap-2 rounded-[16px] bg-[#F5F5F7] px-3 py-2'>
+//             <img src='/images/Search.png' alt='search' className='h-5 w-5 object-contain opacity-70' />
+
+//             <input
+//               type='text'
+//               placeholder='Search modules, courses, or documents...'
+//               value={searchQuery}
+//               onChange={(e) => setSearchQuery(e.target.value)}
+//               className='w-full bg-transparent text-sm text-gray-600 placeholder:text-gray-400 outline-none'
+//             />
+
+//             <button className='flex h-8 w-8 items-center justify-center rounded-full hover:bg-white transition'>
+//               <img src='/images/sl.png' alt='filter' className='h-5 w-5 object-contain' />
+//             </button>
+//           </div>
+//         </div>
+
+//         {/* RIGHT SIDE */}
+//         <div className='flex items-center gap-3 flex-shrink-0'>
+//           {/* NOTIFICATION */}
+//           <button className='relative p-2 rounded-full hover:bg-white transition'>
+//             <img src='/images/nt.png' alt='notification' className='h-5 w-5' />
+
+//             {user.notifications > 0 && (
+//               <span className='absolute top-1 right-1 w-4 h-4 bg-red-500 rounded-full text-white text-[10px] flex items-center justify-center font-bold'>
+//                 {user.notifications}
+//               </span>
+//             )}
+//           </button>
+
+//           {/* PROFILE */}
+//           <div className='relative' ref={menuRef}>
+//             <button
+//               onClick={() => setOpenMenu(!openMenu)}
+//               className='flex items-center gap-2 px-2 py-1 rounded-full hover:bg-white transition'
+//             >
+//               {/* Avatar */}
+//               <div className='w-9 h-9 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white text-sm font-semibold'>
+//                 {user.name[0]}
+//                 {user.lastName[0]}
+//               </div>
+
+//               {/* Name */}
+//               <div className='hidden md:flex flex-col leading-[1.1]'>
+//                 <span className='text-[12px] font-semibold text-gray-800'>
+//                   {user.name} {user.lastName}
+//                 </span>
+//                 <span className='text-[10px] text-gray-400'>{user.role}</span>
+//               </div>
+
+//               {/* Arrow */}
+//               <span className='hidden md:block text-gray-500 text-sm'>⌄</span>
+//             </button>
+
+//             {/* DROPDOWN */}
+//             <AnimatePresence>
+//               {openMenu && (
+//                 <motion.div
+//                   initial={{ opacity: 0, y: 10, scale: 0.98 }}
+//                   animate={{ opacity: 1, y: 0, scale: 1 }}
+//                   exit={{ opacity: 0, y: 10, scale: 0.98 }}
+//                   transition={{ duration: 0.2 }}
+//                   className='absolute right-0 mt-3 w-[300px] bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden'
+//                 >
+//                   {/* USER INFO */}
+//                   <div className='flex gap-3 p-4'>
+//                     <div className='w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white font-semibold'>
+//                       {user.name[0]}
+//                       {user.lastName[0]}
+//                     </div>
+
+//                     <div className='flex-1'>
+//                       <p className='font-semibold text-gray-800'>
+//                         {user.name} {user.lastName}
+//                       </p>
+//                       <p className='text-sm text-gray-500'>{user.email}</p>
+//                       <p className='text-sm text-gray-400'>{user.role}</p>
+
+//                       <button className='mt-2 text-sm text-purple-600 font-medium hover:underline'>
+//                         View Profile →
+//                       </button>
+//                     </div>
+
+//                     <button onClick={() => setOpenMenu(false)} className='text-xl text-gray-500'>
+//                       ×
+//                     </button>
+//                   </div>
+
+//                   <div className='border-t' />
+
+//                   {/* MENU */}
+//                   <div className='p-2'>
+//                     <button className='w-full text-left px-3 py-3 hover:bg-gray-50 rounded-xl'>
+//                       ⚙️ Account Settings
+//                     </button>
+
+//                     <div className='flex items-center justify-between px-3 py-3 hover:bg-gray-50 rounded-xl'>
+//                       <span>🌙 Dark Mode</span>
+//                       <div className='w-10 h-5 bg-gray-200 rounded-full' />
+//                     </div>
+
+//                     <button
+//                       className='w-full text-left px-3 py-3 text-red-500 hover:bg-red-50 rounded-xl'
+//                       onClick={handleLogout}
+//                     >
+//                       ↪ Logout
+//                     </button>
+//                   </div>
+//                 </motion.div>
+//               )}
+//             </AnimatePresence>
+//           </div>
+//         </div>
+//       </div>
+//     </header>
+//   );
+// }
+
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useApp } from "../../contexts/AppContext";
@@ -9,77 +154,88 @@ export default function Topbar() {
   const menuRef = useRef(null);
   const handleLogout = useLogout();
 
-  // close dropdown on outside click
   useEffect(() => {
     function handleClickOutside(e) {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
         setOpenMenu(false);
       }
     }
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  return (
-    <header className='sticky top-0 z-20 bg-[#F5F5F7] border-b border-gray-100 px-4 md:px-6 py-3'>
-      <div className='flex items-center justify-between gap-4'>
-        {/* SEARCH */}
-        <div className='flex-1 w-full rounded-[20px] bg-white p-1.5'>
-          <div className='flex items-center gap-2 rounded-[16px] bg-[#F5F5F7] px-3 py-2'>
-            <img src='/images/Search.png' alt='search' className='h-5 w-5 object-contain opacity-70' />
+  const firstNameInitial = user?.name?.[0] || "";
+  const lastNameInitial = user?.lastName?.[0] || "";
+  const fullName = user ? `${user.name || ""} ${user.lastName || ""}`.trim() : "Guest";
+  const role = user?.role || "User";
+  const email = user?.email || "";
+  const notifications = user?.notifications || 0;
 
-            <input
-              type='text'
-              placeholder='Search modules, courses, or documents...'
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className='w-full bg-transparent text-sm text-gray-600 placeholder:text-gray-400 outline-none'
+  return (
+    <header className="sticky top-0 z-20 border-b border-gray-100 bg-[#F5F5F7] px-4 py-3 md:px-6">
+      <div className="flex items-center justify-between gap-4">
+        <div className="w-full flex-1 rounded-[20px] bg-white p-1.5">
+          <div className="flex items-center gap-2 rounded-[16px] bg-[#F5F5F7] px-3 py-2">
+            <img
+              src="/images/Search.png"
+              alt="search"
+              className="h-5 w-5 object-contain opacity-70"
             />
 
-            <button className='flex h-8 w-8 items-center justify-center rounded-full hover:bg-white transition'>
-              <img src='/images/sl.png' alt='filter' className='h-5 w-5 object-contain' />
+            <input
+              type="text"
+              placeholder="Search modules, courses, or documents..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-transparent text-sm text-gray-600 outline-none placeholder:text-gray-400"
+            />
+
+            <button className="flex h-8 w-8 items-center justify-center rounded-full transition hover:bg-white">
+              <img
+                src="/images/sl.png"
+                alt="filter"
+                className="h-5 w-5 object-contain"
+              />
             </button>
           </div>
         </div>
 
-        {/* RIGHT SIDE */}
-        <div className='flex items-center gap-3 flex-shrink-0'>
-          {/* NOTIFICATION */}
-          <button className='relative p-2 rounded-full hover:bg-white transition'>
-            <img src='/images/nt.png' alt='notification' className='h-5 w-5' />
+        <div className="flex flex-shrink-0 items-center gap-3">
+          <button className="relative rounded-full p-2 transition hover:bg-white">
+            <img
+              src="/images/nt.png"
+              alt="notification"
+              className="h-5 w-5"
+            />
 
-            {user.notifications > 0 && (
-              <span className='absolute top-1 right-1 w-4 h-4 bg-red-500 rounded-full text-white text-[10px] flex items-center justify-center font-bold'>
-                {user.notifications}
+            {notifications > 0 && (
+              <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
+                {notifications}
               </span>
             )}
           </button>
 
-          {/* PROFILE */}
-          <div className='relative' ref={menuRef}>
+          <div className="relative" ref={menuRef}>
             <button
               onClick={() => setOpenMenu(!openMenu)}
-              className='flex items-center gap-2 px-2 py-1 rounded-full hover:bg-white transition'
+              className="flex items-center gap-2 rounded-full px-2 py-1 transition hover:bg-white"
             >
-              {/* Avatar */}
-              <div className='w-9 h-9 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white text-sm font-semibold'>
-                {user.name[0]}
-                {user.lastName[0]}
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-purple-400 to-purple-600 text-sm font-semibold text-white">
+                {firstNameInitial}
+                {lastNameInitial}
               </div>
 
-              {/* Name */}
-              <div className='hidden md:flex flex-col leading-[1.1]'>
-                <span className='text-[12px] font-semibold text-gray-800'>
-                  {user.name} {user.lastName}
+              <div className="hidden flex-col leading-[1.1] md:flex">
+                <span className="text-[12px] font-semibold text-gray-800">
+                  {fullName}
                 </span>
-                <span className='text-[10px] text-gray-400'>{user.role}</span>
+                <span className="text-[10px] text-gray-400">{role}</span>
               </div>
 
-              {/* Arrow */}
-              <span className='hidden md:block text-gray-500 text-sm'>⌄</span>
+              <span className="hidden text-sm text-gray-500 md:block">⌄</span>
             </button>
 
-            {/* DROPDOWN */}
             <AnimatePresence>
               {openMenu && (
                 <motion.div
@@ -87,47 +243,46 @@ export default function Topbar() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.98 }}
                   transition={{ duration: 0.2 }}
-                  className='absolute right-0 mt-3 w-[300px] bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden'
+                  className="absolute right-0 mt-3 w-[300px] overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl"
                 >
-                  {/* USER INFO */}
-                  <div className='flex gap-3 p-4'>
-                    <div className='w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white font-semibold'>
-                      {user.name[0]}
-                      {user.lastName[0]}
+                  <div className="flex gap-3 p-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-purple-400 to-purple-600 font-semibold text-white">
+                      {firstNameInitial}
+                      {lastNameInitial}
                     </div>
 
-                    <div className='flex-1'>
-                      <p className='font-semibold text-gray-800'>
-                        {user.name} {user.lastName}
-                      </p>
-                      <p className='text-sm text-gray-500'>{user.email}</p>
-                      <p className='text-sm text-gray-400'>{user.role}</p>
+                    <div className="flex-1">
+                      <p className="font-semibold text-gray-800">{fullName}</p>
+                      <p className="text-sm text-gray-500">{email}</p>
+                      <p className="text-sm text-gray-400">{role}</p>
 
-                      <button className='mt-2 text-sm text-purple-600 font-medium hover:underline'>
+                      <button className="mt-2 text-sm font-medium text-purple-600 hover:underline">
                         View Profile →
                       </button>
                     </div>
 
-                    <button onClick={() => setOpenMenu(false)} className='text-xl text-gray-500'>
+                    <button
+                      onClick={() => setOpenMenu(false)}
+                      className="text-xl text-gray-500"
+                    >
                       ×
                     </button>
                   </div>
 
-                  <div className='border-t' />
+                  <div className="border-t" />
 
-                  {/* MENU */}
-                  <div className='p-2'>
-                    <button className='w-full text-left px-3 py-3 hover:bg-gray-50 rounded-xl'>
+                  <div className="p-2">
+                    <button className="w-full rounded-xl px-3 py-3 text-left hover:bg-gray-50">
                       ⚙️ Account Settings
                     </button>
 
-                    <div className='flex items-center justify-between px-3 py-3 hover:bg-gray-50 rounded-xl'>
+                    <div className="flex items-center justify-between rounded-xl px-3 py-3 hover:bg-gray-50">
                       <span>🌙 Dark Mode</span>
-                      <div className='w-10 h-5 bg-gray-200 rounded-full' />
+                      <div className="h-5 w-10 rounded-full bg-gray-200" />
                     </div>
 
                     <button
-                      className='w-full text-left px-3 py-3 text-red-500 hover:bg-red-50 rounded-xl'
+                      className="w-full rounded-xl px-3 py-3 text-left text-red-500 hover:bg-red-50"
                       onClick={handleLogout}
                     >
                       ↪ Logout

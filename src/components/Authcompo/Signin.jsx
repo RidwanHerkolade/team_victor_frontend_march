@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useLogin } from "../../hooks/useLogin";
 
 const input = (hasError) =>
-  `w-full bg-[#F4E6FF] rounded-[0.3rem] px-5 py-3 pr-12 text-[15px] font-medium text-[#BCA6E2] placeholder:text-purple-300 outline-none border-2 ${
+  `w-full bg-[#f4e6ff]  rounded-[0.3rem] px-5 py-3 pr-12 text-[15px] font-medium text-[#0F172A] placeholder:text-[#BCA6E2] focus:bg-white outline-none border-2 ${
     hasError ? "border-red-400" : "border-transparent focus:border-purple-400"
   }`;
 
