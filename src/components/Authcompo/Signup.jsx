@@ -5,7 +5,7 @@ import { ArrowLeft, X, Mail, Phone, Eye, EyeOff, Info, ChevronDown } from "lucid
 import { useSignup } from "../../hooks/useSignup";
 
 const input = (hasError) =>
-  `w-full bg-[#F4E6FF] rounded-[0.3rem] px-5 py-3 pr-12 text-[15px] font-medium text-[#BCA6E2] placeholder:text-purple-300 outline-none border-2 ${
+  `w-full bg-[#f4e6ff]  rounded-[0.3rem] px-5 py-3 pr-12 text-[15px] font-medium text-[#0F172A] placeholder:text-[#BCA6E2] focus:bg-white outline-none border-2 ${
     hasError ? "border-red-400" : "border-transparent focus:border-purple-400"
   }`;
 
@@ -117,7 +117,10 @@ export default function Signup() {
                 className={input(errors.email)}
                 {...register("email", {
                   required: "Email is required",
-                  pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Enter a valid email address" },
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Enter a valid email address",
+                  },
                 })}
               />
               <Mail
@@ -155,7 +158,10 @@ export default function Signup() {
                 className={input(errors.password)}
                 {...register("password", {
                   required: "Password is required",
-                  minLength: { value: 8, message: "Password must be at least 8 characters" },
+                  minLength: {
+                    value: 8,
+                    message: "Password must be at least 8 characters",
+                  },
                 })}
               />
               <button
@@ -169,8 +175,8 @@ export default function Signup() {
             {errors.password ? (
               <p className='text-red-500 text-xs mt-1 px-1'>{errors.password.message}</p>
             ) : (
-              <p className='flex items-center gap-1 text-purple-400 text-xs mt-1 px-1'>
-                <Info size={13} /> At least 8 characters
+              <p className='flex items-center gap-1 text-[#0F172A] text-xs mt-1 px-1'>
+                <Info size={13} className='text-[#6813B3]' /> At least 8 characters
               </p>
             )}
           </div>
@@ -203,8 +209,10 @@ export default function Signup() {
         <div className='relative'>
           <select
             defaultValue=''
-            className={input(errors.track) + " appearance-none cursor-pointer"}
-            {...register("track", { required: "Please select a learning track" })}
+            className={`${input(errors.track)} appearance-none cursor-pointer bg-[#f4e6ff] hover:bg-[#f4e6ff]`}
+            {...register("track", {
+              required: "Please select a learning track",
+            })}
           >
             <option value='' disabled hidden>
               Select Learning Track

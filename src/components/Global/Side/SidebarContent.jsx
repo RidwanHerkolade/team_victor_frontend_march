@@ -22,7 +22,7 @@ export default function SidebarContent({ pathname, onNavigate }) {
 
       <button
         onClick={() => onNavigate("/magic")}
-        className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-purple-600 text-white"
+        className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#B685E1] text-white"
       >
         <Sparkles size={20} />
       </button>

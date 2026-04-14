@@ -56,7 +56,7 @@ export default function LandingHero() {
 
           {/* CTA Buttons */}
           <motion.div
-            className="flex gap-10 mb-12 flex-wrap"
+            className="flex-col flex gap-5 mb-12 md:flex-row md:gap-10"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
@@ -99,7 +99,7 @@ export default function LandingHero() {
 
           {/* Stats */}
           <motion.div
-            className="flex gap-8 flex-wrap"
+            className="flex gap-2 md:gap-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
