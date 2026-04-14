@@ -16,8 +16,6 @@ export const login = async (data) => {
     throw new Error(res.data.message || "Login failed");
   }
 
-  // localStorage.setItem("truemind_token", token);
-
   return res.data;
 };
 

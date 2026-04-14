@@ -9,7 +9,7 @@ export const useLogout = () => {
 
     if (confirmed) {
       logout();
-      navigate("/signin");
+      navigate("/");
     }
   };
 

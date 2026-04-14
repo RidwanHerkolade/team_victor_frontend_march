@@ -107,9 +107,10 @@ export default function Login() {
         <div className='flex justify-end mt-2'>
           <button
             type='submit'
+            disabled={isPending}
             className='bg-[#8533cd] hover:bg-[#5B21B6] text-white font-bold text-lg px-12 py-3 cursor-pointer rounded-2xl w-full md:w-auto md:min-w-[320px] tracking-wide shadow-[0_4px_20px_rgba(109,40,217,0.25)] transition-colors'
           >
-            Login
+            {isPending ? "Logging in..." : "Login"}
           </button>
         </div>
       </form>

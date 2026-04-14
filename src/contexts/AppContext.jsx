@@ -134,8 +134,8 @@ export function AppProvider({ children }) {
   console.log("User from useUser hook:", user);
   const mockUserWithAPI = {
     ...mockUser,
-    name: user?.name?.split(" ")[0],
-    lastName: user?.name?.split(" ")[1],
+    name: user?.name?.split(" ")[0] || mockUser.name,
+    lastName: user?.name?.split(" ")[1] || mockUser.lastName,
     role: user?.role || mockUser.role,
     avatar: user?.avatar || mockUser.avatar,
   };
