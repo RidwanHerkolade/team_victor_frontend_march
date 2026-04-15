@@ -12,12 +12,15 @@ import File from "./pages/Dashboard/File";
 import Message from "./pages/Dashboard/Message";
 import { SettingsPage } from "./pages/Dashboard/Settings";
 import LandingPage from "./pages/Landingpage/LandingPage";
+import Community from "./pages/Dashboard/Community";
+import { CommunityProvider } from "./contexts/CommunityContext";
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 0,
-      cacheTime: 2 * 60 * 1000, 
+      cacheTime: 2 * 60 * 1000,
     },
   },
 });
@@ -29,10 +32,17 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<LandingPage />} /> {/* FIX */}
-            <Route path='landing' element={<LandingPage />} />
             <Route element={<AppLayout />}>
               <Route path='dashboard' element={<Dashboard />} />
               <Route path='/courses' element={<Courses />} />
+              <Route
+                path='/community'
+                element={
+                  <CommunityProvider>
+                    <Community />
+                  </CommunityProvider>
+                }
+              />
               <Route path='/courses/:id' element={<CourseDetails />} />
               {/* <Route path="/tasks" element={<Tasks />} /> */}
               <Route path='/message' element={<Message />} />
@@ -41,6 +51,7 @@ function App() {
             </Route>
             <Route path='signin' element={<SigninPage />} />
             <Route path='signup' element={<SignupPage />} />
+            <Route path='*' element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
 
