@@ -1,8 +1,8 @@
-import { Sparkles, Settings, LogOut } from "lucide-react";
-import { navItems } from "./SideNavItems";
-import NavItem from "./NavItem";
+import { LogOut, Settings, Sparkles } from "lucide-react";
 import { useLogout } from "../../../hooks/useLogout";
 import Logo from "../Logo";
+import NavItem from "./NavItem";
+import { navItems } from "./SideNavItems";
 export default function SidebarContent({ pathname, onNavigate }) {
   const handleLogout = useLogout();
   return (
