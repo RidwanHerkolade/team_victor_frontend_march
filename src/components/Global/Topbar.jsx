@@ -2,6 +2,8 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useApp } from "../../contexts/AppContext";
 import { useLogout } from "../../hooks/useLogout";
+import { LogOut, Settings, User, ChevronRight, X } from "lucide-react";
+
 
 export default function Topbar() {
   const { searchQuery, setSearchQuery } = useApp();
@@ -30,7 +32,7 @@ export default function Topbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const fullName = currentUser?.name || "Guest";
+  const fullName = currentUser?.name;
   const nameParts = fullName.trim().split(" ");
   const firstNameInitial = nameParts[0]?.[0] || "";
   const lastNameInitial = nameParts[1]?.[0] || "";
@@ -112,63 +114,89 @@ export default function Topbar() {
               <span className="hidden text-sm text-gray-500 md:block">⌄</span>
             </button>
 
-            <AnimatePresence>
-              {openMenu && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 10, scale: 0.98 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute right-0 mt-3 w-[300px] overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl"
-                >
-                  <div className="flex gap-3 p-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-purple-400 to-purple-600 font-semibold text-white">
-                      {firstNameInitial}
-                      {lastNameInitial}
-                    </div>
+           <AnimatePresence>
+  {openMenu && (
+    <motion.div
+      initial={{ opacity: 0, y: 12, scale: 0.96 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: 10, scale: 0.98 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      className="absolute right-0 top-full z-[100] mt-3 w-[320px] overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)] backdrop-blur-xl"
+    >
+      {/* Top section */}
+      <div className="relative border-b border-gray-100 bg-gradient-to-br from-purple-50 via-white to-white p-5">
+        <button
+          onClick={() => setOpenMenu(false)}
+          className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-gray-400 transition hover:bg-black/5 hover:text-gray-700"
+        >
+          <X size={16} />
+        </button>
 
-                    <div className="flex-1">
-                      <p className="font-semibold text-gray-800">{fullName}</p>
-                      <p className="text-sm text-gray-500">{email}</p>
-                      <p className="text-sm capitalize text-gray-400">
-                        {track}
-                      </p>
+        <div className="flex items-start gap-4 pr-8">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-violet-600 text-base font-semibold tracking-wide text-white shadow-md">
+            {firstNameInitial}
+            {lastNameInitial}
+          </div>
 
-                      <button className="mt-2 text-sm font-medium text-purple-600 hover:underline">
-                        View Profile →
-                      </button>
-                    </div>
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-[15px] font-semibold text-gray-900">
+              {fullName}
+            </p>
+            <p className="truncate text-sm text-gray-500">{email}</p>
 
-                    <button
-                      onClick={() => setOpenMenu(false)}
-                      className="text-xl text-gray-500"
-                    >
-                      ×
-                    </button>
-                  </div>
+            <span className="mt-2 inline-flex rounded-full bg-purple-100 px-2.5 py-1 text-xs font-medium capitalize text-purple-700">
+              {track}
+            </span>
 
-                  <div className="border-t" />
+            <button className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-purple-600 transition hover:text-purple-700">
+              View Profile
+              <ChevronRight size={15} />
+            </button>
+          </div>
+        </div>
+      </div>
 
-                  <div className="p-2">
-                    <button className="w-full rounded-xl px-3 py-3 text-left hover:bg-gray-50">
-                      Account Settings
-                    </button>
+      {/* Menu items */}
+      <div className="p-2">
+        <button className="group flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left transition hover:bg-gray-50">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-600 transition group-hover:bg-purple-100 group-hover:text-purple-600">
+            <User size={18} />
+          </div>
+          <div className="flex-1">
+            <p className="text-sm font-medium text-gray-800">My Account</p>
+            <p className="text-xs text-gray-500">Manage your personal profile</p>
+          </div>
+        </button>
 
-                    <div className="flex items-center justify-between rounded-xl px-3 py-3 hover:bg-gray-50">
-                      <span>Dark Mode</span>
-                      <div className="h-5 w-10 rounded-full bg-gray-200" />
-                    </div>
+        <button className="group flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left transition hover:bg-gray-50">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-600 transition group-hover:bg-purple-100 group-hover:text-purple-600">
+            <Settings size={18} />
+          </div>
+          <div className="flex-1">
+            <p className="text-sm font-medium text-gray-800">Account Settings</p>
+            <p className="text-xs text-gray-500">Preferences and security</p>
+          </div>
+        </button>
 
-                    <button
-                      className="w-full rounded-xl px-3 py-3 text-left text-red-500 hover:bg-red-50"
-                      onClick={handleLogout}
-                    >
-                      ↪ Logout
-                    </button>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+        <div className="my-2 border-t border-gray-100" />
+
+        <button
+          onClick={handleLogout}
+          className="group flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left transition hover:bg-red-50"
+        >
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-50 text-red-500 transition group-hover:bg-red-100">
+            <LogOut size={18} />
+          </div>
+          <div className="flex-1">
+            <p className="text-sm font-medium text-red-600">Logout</p>
+            <p className="text-xs text-red-400">Sign out of your account</p>
+          </div>
+        </button>
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
+
           </div>
         </div>
       </div>

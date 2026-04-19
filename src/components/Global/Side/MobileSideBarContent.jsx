@@ -13,14 +13,14 @@ import {
 import { useLogout } from "../../../hooks/useLogout";
 
 const mobileNavItems = [
-  { id: "dashboard", label: "Dashboard", icon: Home, path: "/dashboard" },
-  { id: "courses", label: "My Courses", icon: Layers, path: "/courses" },
-  { id: "community", label: "Community", icon: Users, path: "/community" },
-  { id: "projects", label: "My Projects", icon: FileText, path: "/project" },
-  { id: "messages", label: "Messages", icon: MessageCircle, path: "/message", badge: 3 },
-  { id: "resources", label: "Resources", icon: Folder, path: "/resources" },
-  { id: "settings", label: "Settings", icon: Settings, path: "/settings" },
-  { id: "logout", label: "Log out", icon: LogOut, action: "logout" },
+  { id: "dashboard", label: "Dashboard", img: "/images/nv9.png",path: "/dashboard" },
+  { id: "courses", label: "My Courses",  img: "/images/nv8.png", path: "/courses" },
+  { id: "community", label: "Community", img: "/images/nv7.png", path: "/community" },
+  { id: "projects", label: "My Projects", img:"/images/nv6.png", path: "/project" },
+  { id: "messages", label: "Messages", img:"/images/nv5.png", path: "/message", badge: 3 },
+  { id: "resources", label: "Resources",img:"/images/nv2.png", path: "/resources" },
+  { id: "settings", label: "Settings", img:"/images/nv1.png", path: "/settings" },
+  { id: "logout", label: "Log out", img:"/images/nv11.png", action: "logout" },
 ];
 
 export default function MobileSidebarContent({ pathname, onNavigate, onClose }) {
@@ -41,7 +41,7 @@ export default function MobileSidebarContent({ pathname, onNavigate, onClose }) 
       {/* Nav items */}
       <nav className="flex flex-1 flex-col gap-5 px-4 py-8">
         {mobileNavItems.map((item) => {
-          const Icon = item.icon;
+          const Images = item.img;
           const isActive = item.path && pathname === item.path;
 
           return (
@@ -55,7 +55,7 @@ export default function MobileSidebarContent({ pathname, onNavigate, onClose }) 
               }`}
             >
               <div className="flex items-center gap-4">
-                <Icon size={24} strokeWidth={1.9} />
+                <img src={Images} alt="img" className="w-4 h-4 object-contain" />
                 <span className="text-[17px] font-medium">{item.label}</span>
               </div>
 

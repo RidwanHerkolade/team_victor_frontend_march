@@ -4,7 +4,12 @@ import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import MobileSidebarContent from "./MobileSidebarContent";
 
-export default function MobileSidebar({ open, onClose, pathname, onNavigate }) {
+export default function MobileSidebar({
+  open,
+  onClose,
+  pathname,
+  onNavigate,
+}) {
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -26,6 +31,7 @@ export default function MobileSidebar({ open, onClose, pathname, onNavigate }) {
     <AnimatePresence>
       {open && (
         <>
+          {/* BACKDROP */}
           <motion.div
             className="fixed inset-0 z-30 bg-black/40 lg:hidden"
             initial={{ opacity: 0 }}
@@ -34,18 +40,22 @@ export default function MobileSidebar({ open, onClose, pathname, onNavigate }) {
             onClick={onClose}
           />
 
+          {/* SIDEBAR */}
           <motion.aside
-            className="fixed left-0 top-20 z-40 h-screen w-full max-w-[340px] bg-white shadow-lg lg:hidden"
+            className="fixed left-0 top-[75px] z-40 h-[calc(100vh-72px)] w-full max-w-[340px] bg-white shadow-lg lg:hidden flex flex-col"
             initial={{ x: "-100%" }}
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
           >
-            <MobileSidebarContent
-              pathname={pathname}
-              onNavigate={handleClick}
-              onClose={onClose}
-            />
+            {/* SCROLLABLE CONTENT */}
+            <div className="flex-1 overflow-y-auto">
+              <MobileSidebarContent
+                pathname={pathname}
+                onNavigate={handleClick}
+                onClose={onClose}
+              />
+            </div>
           </motion.aside>
         </>
       )}

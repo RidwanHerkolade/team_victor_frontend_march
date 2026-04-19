@@ -40,7 +40,7 @@ export function LiveSession() {
           whileTap={{ scale: 0.95 }}
           className="flex items-center gap-1.5 bg-orange-500 text-white text-xs font-semibold px-4 py-2 rounded-xl hover:bg-orange-600 transition-colors"
         >
-          <span>🎥</span> Join Now
+          <span></span> Join Now
         </motion.button>
       </div>
     </motion.div>
